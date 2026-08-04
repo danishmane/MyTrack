@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 33% 98%; --foreground: 228 28% 15%; --card: 0 0% 100%; --card-foreground: 228 28% 15%;
+    --popover: 0 0% 100%; --popover-foreground: 228 28% 15%; --primary: 257 75% 58%; --primary-foreground: 0 0% 100%;
+    --secondary: 240 25% 96%; --secondary-foreground: 228 28% 15%; --muted: 240 20% 96%; --muted-foreground: 226 12% 56%;
+    --accent: 240 25% 96%; --accent-foreground: 228 28% 15%; --destructive: 0 72% 55%; --destructive-foreground: 0 0% 100%;
+    --border: 237 20% 91%; --input: 237 20% 88%; --ring: 257 75% 58%; --radius: .85rem;
+    --sidebar-background: 0 0% 100%; --sidebar-foreground: 228 28% 15%; --sidebar-primary: 257 75% 58%; --sidebar-primary-foreground: 0 0% 100%; --sidebar-accent: 240 25% 97%; --sidebar-accent-foreground: 228 28% 15%; --sidebar-border: 237 20% 94%; --sidebar-ring: 257 75% 58%;
+  }
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground; font-family: "DM Sans", sans-serif; }
+  button, input, select { font: inherit; }
+}
+
+@layer components {
+  .app-shell { @apply flex min-h-screen bg-[#f8f8fc] text-slate-900; }
+  .login-shell { @apply flex min-h-screen items-center justify-center bg-[radial-gradient(circle_at_15%_15%,#eee9ff_0,transparent_32%),radial-gradient(circle_at_90%_85%,#e4f9f2_0,transparent_28%),#f8f8fc] p-5; }
+  .login-card { @apply w-full max-w-[410px] rounded-[26px] border border-white/80 bg-white/90 p-7 shadow-[0_24px_80px_rgba(65,48,120,.12)] backdrop-blur sm:p-10; }
+  .login-label { @apply block text-xs font-bold text-slate-600; }
+  .login-label input { @apply mt-2 h-11 w-full rounded-xl border border-[#e8e6ef] bg-[#fbfbfd] px-3 text-sm font-medium text-slate-800 outline-none focus:border-[#8066e8] focus:ring-2 focus:ring-[#8066e8]/10; }
+  .sidebar { @apply fixed inset-y-0 left-0 z-20 hidden w-[246px] border-r border-[#ededf4] bg-white px-5 py-7 lg:flex lg:flex-col; }
+  .brand, .mobile-brand { @apply flex items-center gap-2 font-extrabold tracking-[-.04em] text-[#28243d]; font-family: Manrope, sans-serif; }
+  .brand { @apply mb-8 px-1 text-[17px]; }
+  .brand-mark { @apply flex h-7 w-7 items-center justify-center rounded-[9px] bg-[#7558e8] text-white shadow-[0_5px_14px_rgba(117,88,232,.3)]; }
+  .workspace-switch { @apply mb-8 flex items-center gap-2 rounded-xl bg-[#fafafd] px-3 py-2.5; }
+  .avatar { @apply flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#e7dcff] text-[10px] font-bold text-[#7558e8]; }
+  .avatar.small { @apply h-7 w-7 text-[9px]; }
+  .nav-label, .eyebrow { @apply text-[10px] font-bold uppercase tracking-[.12em] text-slate-400; }
+  .nav-label { @apply mb-2 px-3; }
+  .nav-item { @apply flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[13px] font-semibold text-slate-400 transition hover:bg-[#faf9ff] hover:text-[#7558e8]; }
+  .nav-item.active { @apply bg-[#f2efff] text-[#7558e8]; }
+  .nav-pill { @apply ml-auto rounded-md bg-white px-1.5 py-0.5 text-[9px] font-bold text-[#7558e8] shadow-sm; }
+  .sidebar-bottom { @apply mt-auto; }
+  .pro-card { @apply rounded-2xl border border-[#eee9ff] bg-gradient-to-br from-[#f8f5ff] to-[#fff] p-3.5; }
+  .main-content { @apply min-w-0 flex-1 lg:ml-[246px]; }
+  .topbar { @apply flex h-[75px] items-center justify-between border-b border-[#ededf4] bg-white/80 px-5 backdrop-blur lg:px-10; }
+  .search-wrap { @apply hidden w-72 items-center gap-2 rounded-xl bg-[#f8f8fb] px-3 text-slate-400 md:flex; }
+  .search-wrap input { @apply h-9 border-0 bg-transparent p-0 text-xs shadow-none focus-visible:ring-0; }
+  .top-actions { @apply flex items-center gap-2.5; }
+  .icon-button { @apply relative flex h-9 w-9 items-center justify-center rounded-xl text-slate-400 transition hover:bg-[#f4f2fc] hover:text-[#7558e8]; }
+  .notification i { @apply absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-orange-400 ring-2 ring-white; }
+  .mobile-brand { @apply text-sm lg:hidden; }
+  .page-wrap { @apply mx-auto max-w-[1420px] px-5 py-8 lg:px-10 lg:py-10; }
+  .page-heading { @apply mb-8 flex flex-col justify-between gap-5 sm:flex-row sm:items-end; }
+  h1, h2 { font-family: Manrope, sans-serif; }
+  h1 { @apply mt-2 text-[29px] font-extrabold tracking-[-.055em] text-[#29243d] sm:text-[34px]; }
+  h2 { @apply mt-1 text-[18px] font-bold tracking-[-.035em] text-[#29243d]; }
+  .heading-sub { @apply mt-1 text-sm text-slate-400; }
+  .add-button { @apply rounded-xl bg-[#7558e8] px-4 text-xs font-bold shadow-[0_8px_20px_rgba(117,88,232,.22)] hover:bg-[#6648dc]; }
+  .metrics-grid { @apply mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4; }
+  .metric-card, .panel { @apply rounded-2xl border border-[#eeeeF4] bg-white shadow-[0_3px_16px_rgba(42,35,75,.025)]; }
+  .metric-card { @apply p-5 transition hover:-translate-y-0.5 hover:shadow-[0_9px_25px_rgba(42,35,75,.07)]; }
+  .metric-icon { @apply flex h-9 w-9 items-center justify-center rounded-xl; }
+  .metric-icon.violet, .expense-symbol.violet { @apply bg-[#f0ebff] text-[#7558e8]; }
+  .metric-icon.orange, .expense-symbol.orange { @apply bg-[#fff1e6] text-[#ee9852]; }
+  .metric-icon.mint, .expense-symbol.mint { @apply bg-[#e8f9f2] text-[#32af83]; }
+  .metric-icon.blue, .expense-symbol.blue { @apply bg-[#e9f3ff] text-[#5a9be8]; }
+  .content-grid { @apply grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1.45fr)_minmax(280px,.75fr)]; }
+  .left-column { @apply space-y-6; }
+  .panel { @apply p-5 sm:p-6; }
+  .panel-header, .calendar-top { @apply flex items-start justify-between gap-4; }
+  .select-control { @apply rounded-lg border border-[#ecebf1] bg-white px-3 py-2 text-[11px] font-bold text-slate-500 outline-none; }
+  .chart-legend { @apply mt-7 flex items-center gap-4 text-[11px] text-slate-400; }
+  .chart-legend strong { @apply ml-auto text-sm font-bold text-slate-800; }
+  .chart-legend small { @apply ml-1 text-[10px] font-normal text-slate-400; }
+  .legend-dot { @apply mr-1.5 inline-block h-2 w-2 rounded-full; }
+  .violet-dot { @apply bg-[#8066e8]; } .pale-dot { @apply bg-[#dcd6f5]; } .orange-dot { @apply bg-[#f2aa6d]; } .blue-dot { @apply bg-[#73a9e8]; }
+  .bar-chart { @apply mt-5 flex h-[160px] items-end justify-between gap-2 border-b border-[#f0eff5] bg-[linear-gradient(to_bottom,transparent_49%,#f4f3f7_50%,transparent_51%)] px-2; }
+  .bar-column { @apply flex h-full flex-1 flex-col items-center justify-end gap-2; }
+  .bar { @apply w-full max-w-[26px] rounded-t-md bg-[#ddd8f8] transition-all hover:bg-[#a698eb]; } .bar.highlight { @apply bg-[#8066e8]; }
+  .bar-column span { @apply h-4 text-[9px] text-slate-300; }
+  .link-button { @apply flex items-center gap-1 text-xs font-bold text-[#7558e8] hover:text-[#583dc1]; }
+  .expense-list { @apply mt-5 divide-y divide-[#f2f1f6]; }
+  .expense-row { @apply flex items-center gap-3 py-3; }
+  .expense-symbol { @apply flex h-9 w-9 shrink-0 items-center justify-center rounded-xl; }
+  .budget-panel { @apply min-h-[360px]; }
+  .budget-ring { @apply mx-auto mt-7 flex h-40 w-40 items-center justify-center rounded-full; background: conic-gradient(#8066e8 0 64%, #eeeafd 64% 100%); }
+  .ring-inner { @apply flex h-[124px] w-[124px] flex-col items-center justify-center rounded-full bg-white; } .ring-inner strong { @apply text-[31px] font-extrabold tracking-[-.06em] text-[#29243d]; font-family: Manrope, sans-serif; } .ring-inner strong span { @apply text-base; } .ring-inner small { @apply text-[10px] text-slate-400; }
+  .budget-total { @apply mt-6 flex justify-between text-xs text-slate-400; } .budget-total strong { @apply text-slate-700; }
+  .budget-progress { @apply mt-3 h-1.5 overflow-hidden rounded-full bg-[#eeeafd]; } .budget-progress div { @apply h-full rounded-full bg-[#8066e8]; }
+  .budget-note { @apply mt-6 flex gap-2.5 rounded-xl bg-[#faf8ff] p-3; } .tiny-icon { @apply flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-[#eee9ff] text-[#8066e8]; }
+  .budget-note p { @apply text-[11px] leading-relaxed text-slate-500; } .budget-note strong { @apply text-slate-700; }
+  .category-breakdown { @apply mt-5 space-y-3; } .category-line { @apply flex justify-between text-xs text-slate-500; } .category-line strong { @apply text-slate-700; }
+  .calendar-panel { @apply mt-6; } .calendar-actions { @apply flex items-center gap-2; } .calendar-actions span { @apply px-2 text-xs font-bold text-slate-600; }
+  .calendar-grid { @apply mt-7 grid grid-cols-7 overflow-hidden rounded-xl border-l border-t border-[#efeff5]; }
+  .calendar-weekday { @apply bg-[#fafafd] py-3 text-center text-[10px] font-bold uppercase tracking-wider text-slate-400; border-right: 1px solid #efeff5; border-bottom: 1px solid #efeff5; }
+  .calendar-day { @apply relative min-h-[104px] border-b border-r border-[#efeff5] bg-white p-2 text-left transition hover:bg-[#faf9ff] sm:p-3; } .calendar-day.muted-day { @apply bg-[#fcfcfd] text-slate-300; } .calendar-day.today .day-number { @apply bg-[#7558e8] text-white; }
+  .day-number { @apply inline-flex h-6 w-6 items-center justify-center rounded-full text-[11px] font-bold text-slate-500; }
+  .day-expenses { @apply mt-1 space-y-0.5; } .day-expenses strong { @apply block text-[10px] font-bold text-[#7558e8]; } .day-expenses span { @apply flex items-center gap-1 truncate text-[9px] font-medium text-slate-400; } .calendar-dot { @apply h-1.5 w-1.5 shrink-0 rounded-full; } .calendar-dot.mint { @apply bg-[#42ba8b]; } .calendar-dot.blue { @apply bg-[#62a1e8]; } .calendar-dot.violet { @apply bg-[#8066e8]; } .calendar-dot.orange { @apply bg-[#eca05e]; } .calendar-dot.pink { @apply bg-[#dd7eaa]; }
+  .modal-backdrop { @apply fixed inset-0 z-50 flex items-center justify-center bg-[#1e1833]/30 p-4 backdrop-blur-sm; } .expense-modal { @apply w-full max-w-[410px] rounded-2xl bg-white p-6 shadow-2xl; } .modal-header { @apply mb-6 flex justify-between; } .expense-modal label { @apply mb-4 block text-xs font-bold text-slate-600; } .expense-modal input, .expense-modal select { @apply mt-2 h-11 w-full rounded-xl border border-[#e8e6ef] bg-[#fbfbfd] px-3 text-sm font-medium text-slate-800 outline-none focus:border-[#8066e8] focus:ring-2 focus:ring-[#8066e8]/10; } .modal-footer { @apply mt-6 flex justify-end gap-2; } .cancel-button { @apply rounded-xl px-4 text-xs font-bold text-slate-500 hover:bg-slate-50; } .settings-form-grid { @apply grid grid-cols-1 gap-x-3 sm:grid-cols-2; } .settings-form-grid label { @apply mb-3; } .field-hint { @apply mt-1 block text-[10px] font-normal text-slate-400; }
+  .management-modal { @apply max-w-[480px]; } .management-form { @apply mt-5 grid gap-3; } .management-form input, .management-form select { @apply h-11 rounded-xl border border-[#e8e6ef] bg-[#fbfbfd] px-3 text-sm outline-none focus:border-[#8066e8]; } .management-list { @apply mt-5 divide-y divide-[#f1eff5] rounded-xl border border-[#efedf4] px-3; } .management-row { @apply flex items-center justify-between py-3 text-xs font-bold text-slate-700; } .management-row small { @apply text-[10px] font-medium text-slate-400; } .category-chips { @apply mt-5 flex flex-wrap gap-2; } .category-chips span { @apply inline-flex items-center gap-2 rounded-full bg-[#f0ebff] px-3 py-1.5 text-[11px] font-bold text-[#7558e8]; } .category-chips button { @apply text-sm leading-none text-[#7558e8]/60 hover:text-red-500; } .remove-button { @apply text-[10px] font-bold text-red-400 hover:text-red-600; } .report-summary { @apply my-5 flex items-center gap-3 rounded-xl bg-[#faf8ff] p-4 text-[#7558e8]; } .report-summary div { @apply flex flex-col; } .report-summary strong { @apply text-lg text-slate-800; } .report-summary span { @apply text-[11px] text-slate-400; }
+  .dark-mode { @apply bg-[#171524] text-white; } .dark-mode .sidebar, .dark-mode .topbar, .dark-mode .panel, .dark-mode .metric-card, .dark-mode .calendar-day, .dark-mode .expense-modal { @apply border-white/10 bg-[#211e32] text-white; } .dark-mode h1, .dark-mode h2, .dark-mode .metric-card p, .dark-mode .expense-row p, .dark-mode .category-line strong, .dark-mode .budget-total strong { @apply text-white; } .dark-mode .calendar-weekday { @apply bg-[#29253d]; } .dark-mode .calendar-day.muted-day { @apply bg-[#1d1a2b]; } .dark-mode .workspace-switch, .dark-mode .search-wrap, .dark-mode .pro-card, .dark-mode .budget-note { @apply bg-white/5; }
+}
