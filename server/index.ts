@@ -14,7 +14,31 @@ export function createServer() {
   const app = express();
   app.disable("x-powered-by");
   app.set("trust proxy", 1);
-  app.use(cors({ origin: process.env.CLIENT_ORIGIN ? process.env.CLIENT_ORIGIN.split(",") : false }));
+
+  const configuredOrigins = (process.env.CLIENT_ORIGIN ?? "")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+
+  const allowOrigin = (origin: string | undefined) => {
+    if (!origin) return true;
+    if (configuredOrigins.includes(origin)) return true;
+    if (origin.includes(".vercel.app")) return true;
+    if (origin.startsWith("http://localhost:") || origin.startsWith("http://127.0.0.1:")) return true;
+    return false;
+  };
+
+  app.use(cors({
+    origin(origin, callback) {
+      if (allowOrigin(origin)) {
+        callback(null, true);
+        return;
+      }
+      callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
+  }));
+
   app.use(express.json({ limit: "1mb" }));
   app.use(express.urlencoded({ extended: true }));
 
