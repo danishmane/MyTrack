@@ -1,11 +1,10 @@
-import type { RequestHandler } from "express";
+import type { Request, RequestHandler } from "express";
 import { db } from "../database";
 import type { AuthenticatedRequest } from "./auth";
 
 const userId = (req: Request) => (req as AuthenticatedRequest).user!.id;
 const colorFor = (category: string) => category === "Food" ? "mint" : category === "Bills" || category === "Home" ? "orange" : category === "Transport" || category === "Health" ? "blue" : "violet";
 
-type Request = Parameters<RequestHandler>[0];
 export const listCategories: RequestHandler = (req, res) => res.json({ categories: db.prepare("SELECT id, name FROM categories WHERE user_id = ? ORDER BY name").all(userId(req)) });
 export const deleteCategory: RequestHandler = (req, res) => {
   const result = db.prepare("DELETE FROM categories WHERE id = ? AND user_id = ?").run(Number(req.params.id), userId(req));

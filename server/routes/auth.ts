@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import type { RequestHandler } from "express";
+import type { Request, RequestHandler } from "express";
 import { db } from "../database";
 
 const jwtSecret = process.env.JWT_SECRET ?? "local-only-change-this-secret";
@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === "production" && !process.env.JWT_SECRET) throw new 
 const tokenLifetime = "7d";
 
 type UserRow = { id: number; username: string; password_hash: string; role: string };
-export type AuthenticatedRequest = Parameters<RequestHandler>[0] & { user?: { id: number; username: string; role: string } };
+export type AuthenticatedRequest = Request & { user?: { id: number; username: string; role: string } };
 
 export const requireAuth: RequestHandler = (req, res, next) => {
   const header = req.headers.authorization;

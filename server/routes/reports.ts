@@ -1,8 +1,8 @@
-import type { RequestHandler } from "express";
+import type { Request, RequestHandler } from "express";
 import { db } from "../database";
 import type { AuthenticatedRequest } from "./auth";
 
-const getUserId = (req: Parameters<RequestHandler>[0]) => (req as AuthenticatedRequest).user!.id;
+const getUserId = (req: Request) => (req as AuthenticatedRequest).user!.id;
 const monthPattern = (value: unknown) => typeof value === "string" && /^\d{4}-\d{2}$/.test(value) ? `${value}-%` : "____-__-%";
 
 export const monthlyReport: RequestHandler = (req, res) => {
